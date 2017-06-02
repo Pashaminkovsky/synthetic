@@ -60,7 +60,10 @@ class Customer:
 		return beginning + rand(begin1) + action + rand(begin2) + obj + rand(begin3) + credit + rand(begin4)
 
 
-	""" Asks a random question based on queries """
+	""" 
+	Asks a random question based on queries
+	Returns question, query 
+	"""
 	def askQuestion(self):
 		##################### fluff #####################
 		furthermore = syn('furthermore')
@@ -68,33 +71,36 @@ class Customer:
 
 		questionStarts = ["Also, just out of curiousity,", rand(furthermore) + ", can you please " + rand(tell) + " me,", "Also I'm " + rand(syn('interested')) + " to know,", "Can you also please let me know,"]
 		questionEnds = ["I'd " + rand(['like', 'be interested', 'be curious']) + rand([" to know.", " to find out."]), "Thanks!", "Thank you!"]
-		queries = ['Name', 'ID', 'Organization-ID', 'Phone', 'Email', 'Threshold', "Threshold", "Plan", "Language", "Currency", "Company", "City", "State", "Country", "Zip", "Ethnicity", "Company", "Occupation", "Favorite-Color", "Marriage-Status", "Friend-Count", "Savings-Balance", "Checking-Balance", "Favorite-Musician"]
 		finalRemarks = ["It's been a " + rand(['long', 'tiresome', 'slow', 'busy']) + " day, I'm sure you " + rand(['understand','can sympathize','can comprehend']) + ".", "It's " + rand(syn('crucial') + ['important', '']) + " that I know."]
 		fluff = ["Do you mind " + rand(['looking' ,'checking', 'finding out']) + " for me?"]
 
 		##################### Important part #####################
-		query = rand(queries)
+		query = rand(self.queries)
 		question = rand(questionStarts) + " what is my " + query + " on file? " + rand(questionEnds) + " " + rand(finalRemarks) + " " + rand(fluff)
-		return question
+		return question, query
 
 
-	""" Gives response to agent's answer """
-	def giveResponse(self, action, obj, success):
-		num = np.random.randint(2)
-		if (success):
-			if (num == 0):
-				return "Yes, that would be " + rand(syn('great')) + " if you could " + action + " my " +  obj + " for me. Thanks!"
-			if (num == 1):
-				return rand(['Awesome', 'Sweet', 'Great', 'Sounds good', 'Sounds great', "That'd be magnificent"]) + ", let's do that!"
-
+	""" 
+	Asks a random quanitative question ("Does my email start with '4' ?")
+	Returns question, query, num
+	"""
+	def askQuantitativeQuestion(self):
+		query = rand(self.numerical)
+		question = ''
+		num = 0
+		if ((query == 'Phone') | (query == 'Email')):
+			num = np.random.randint(10)
+			question = "Does my " + str(query) + rand([' start with ', ' begin with ']) + str(num) + "?"
 		else:
-			if (num == 0):
-				return "Ah ok. Thanks for " + rand(['trying', 'checking', 'seeing']) + " anyway!"
-			if (num == 1):
-				return "Aw:( Ok fine."
+			num = np.random.randint(999999)
+			question = "Is my " + str(query) + " less than " + str(num)
+		return question, query, num
 
 
-	""" Customer requests to change a random field to random value """
+	""" 
+	Customer requests to change a random field to random value.
+	Returns question, request field to be changed, and new value
+	"""
 	def requestChange(self):
 		emails = ["@gmail.com", "@yahoo.com", "@digitalgenius.com", "@hotmail.com"]
 		plans = ["Basic", "Silver", "Platinum", "Bronze", "Gold", "Supreme"]
@@ -123,7 +129,23 @@ class Customer:
 		change = syn('change')
 		qs = ["Can you please " + rand(change) + " my ", "Would you be able to " + rand(change) + " my ", "Can you edit my ", "Would it be possible to " + rand(change) + " my "]
 		question = rand(qs) + req + ' to ' + val + '?'
-		return question
+		return question, req, val
+
+
+	""" Gives response to agent's answer """
+	def giveResponse(self, action, obj, success):
+		num = np.random.randint(2)
+		if (success):
+			if (num == 0):
+				return "Yes, that would be " + rand(syn('great')) + " if you could " + action + " my " +  obj + " for me. Thanks!"
+			if (num == 1):
+				return rand(['Awesome', 'Sweet', 'Great', 'Sounds good', 'Sounds great', "That'd be magnificent"]) + ", let's do that!"
+
+		else:
+			if (num == 0):
+				return "Ah ok. Thanks for " + rand(['trying', 'checking', 'seeing']) + " anyway!"
+			if (num == 1):
+				return "Aw:( Ok fine."
 
 
 	""" Conversation engine that controls dialogue """
@@ -136,4 +158,5 @@ class Customer:
 
 cust = Customer()
 # print(cust.beginConversation(rand(cust.actions), rand(cust.objects), rand(cust.credits)))
-print(cust.beginConversation('eat', 'burger', 'fork'))
+# print(cust.beginConversation('eat', 'burger', 'fork'))
+print(cust.askQuantitativeQuestion())
