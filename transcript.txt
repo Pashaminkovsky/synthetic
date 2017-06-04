@@ -1,0 +1,101 @@
+Agent to Customer: Hi, My name is Artemis! How can I assistance you today?
+
+
+
+Customer to Agent: Hi, my name Carson. My customer ID is 2879313261. I'm looking to purchase my subscription right now with points. Am I eligible?
+
+Artemis (Agent) to API: HTTP GET www.api.company.com/v2/public/access_token:7131176029 [ Method: 'GET', Authorization: [public: 6131847324, secret: 9942058917] Query: points, customerID: 2879313261] ] 
+
+API to agent: {Response: points: 1456}
+
+Agent to Customer: unluckily I'm terribly sorry Carson you're Low on points to purchase your subscription. The minimum is 6129, but you only have 1456. You must obtain 4673 more points.Agent to Customer: Hello. My name is Alexa! How can I supporter you today?
+
+
+
+Customer to Agent: 'Ello mate! my full name is Carly. My ID is 9814537108. let me renew my own order later with customer loyalty points. Please let me know.
+
+Alexa (Agent) to API: HTTP GET www.api.company.com/v2/public/access_token:2520128035 [ Method: 'GET', Authorization: [public: 3844974630, secret: 2124824779] Query: customer loyalty points, customerID: 9814537108] ] 
+
+API to agent: {Response: customer loyalty points: 8567}
+
+Agent to Customer: Yes that works! You meet the minimum number of customer loyalty points to renew your order. You need 8437 and you're currently at 8567. You would be left with 130 points left. Should I renew it for you?Agent to Customer: Hey! My name is Alex! How can I helper you today?
+
+
+
+Customer to Agent: Hey my name Charley. My customer ID is 1781488723. am I tolerate to purchase my important subscription right now with points. Am I eligible?
+
+Alex (Agent) to API: HTTP GET www.api.company.com/v2/public/access_token:5204180733 [ Method: 'GET', Authorization: [public: 5010815442, secret: 8687156704] Query: points, customerID: 1781488723] ] 
+
+API to agent: {Response: points: 8466}
+
+Agent to Customer: regrettably We cannot fulfill your quest Charley according to my records you don't have enough points to purchase your subscription. You must have at least 9714, but you only have 8466. You must obtain 1248 more points.Agent to Customer: Hi there! My name is Adam! How can I be of assistance to you today?
+
+
+
+Customer to Agent: Top of the morning to ya! my full name is Cindy. My customer ID is 3625366077. am I set aside to extend my own order later with credits please.
+
+Adam (Agent) to API: HTTP GET www.api.company.com/v2/public/access_token:0070835827 [ Method: 'GET', Authorization: [public: 4230808527, secret: 7128613764] Query: credits, customerID: 3625366077] ] 
+
+API to agent: {Response: credits: 3325}
+
+Agent to Customer: alas I'm terribly sorry Cindy you do not have enough credits to extend your order. You must have at least 4337, but you only have 3325. You need 1012 more credits.Agent to Customer: 'Ello mate! My name is Alex! How can I avail you today?
+
+
+
+Customer to Agent: Top of the morning to ya! my name Carly. My user ID is 6873160423. am I appropriate to extend my crucial order using my miles, thank you.
+
+Alex (Agent) to API: HTTP GET www.api.company.com/v2/public/access_token:3075564290 [ Method: 'GET', Authorization: [public: 5010929625, secret: 0595977696] Query: miles, customerID: 6873160423] ] 
+
+API to agent: {Response: miles: 6833}
+
+Agent to Customer: Cool! You've got enough miles to extend your order. You need 4278 and you currently have 6833. You would only have 2555 points left. Would you like me to extend it for you?Agent to Customer: Hi, My name is Adam! How can I assist you today?
+
+
+
+Customer to Agent: Hi there my name is Carol. My ID is 3032815353. let me purchase my of import subscription with my points. Is this possible?
+
+Adam (Agent) to API: HTTP GET www.api.company.com/v2/public/access_token:9877930151 [ Method: 'GET', Authorization: [public: 4516491292, secret: 4604489787] Query: points, customerID: 3032815353] ] 
+
+API to agent: {Response: points: 6568}
+
+Agent to Customer: Cool! you are able  to purchase your subscription; it will cost  1602 points. You presently have 6568. You'd have 4966 points left. Would you like me to go along with the purchase?Agent to Customer: 'Ello mate! My name is Alexandria! How can I facilitate you today?
+
+
+
+Customer to Agent: Top of the morning to ya! my full name is Carly. My user ID is 6343942706. can I find out if I can purchase my important order later with credits. Would this be potential?
+
+Alexandria (Agent) to API: HTTP GET www.api.company.com/v2/public/access_token:9428615086 [ Method: 'GET', Authorization: [public: 7779412468, secret: 5661861239] Query: credits, customerID: 6343942706] ] 
+
+API to agent: {Response: credits: 8219}
+
+Agent to Customer: Alright. you are capable  to purchase your order; it will cost  447 credits. You presently have 8219. You'd have 7772 credits left. Would you like me to continue with the purchase?Agent to Customer: 'Ello mate! My name is Agnus! How can I helper you today?
+
+
+
+Customer to Agent: 'Ello mate! they call me Cindy. My user ID is 0977189332. how can I purchase my own order today with miles?
+
+Agnus (Agent) to API: HTTP GET www.api.company.com/v2/public/access_token:3411722283 [ Method: 'GET', Authorization: [public: 6477302250, secret: 0027958641] Query: miles, customerID: 0977189332] ] 
+
+API to agent: {Response: miles: 574}
+
+Agent to Customer: alas I'm sorry Cindy you are seriously lacking in miles to purchase your order. You must have at least 9059, but you only have 574. You are short 8485 more miles.Agent to Customer: Hi there! My name is Adam! How can I assist you today?
+
+
+
+Customer to Agent: Hello my full name is Carson. My ID is 7574130946. can you tell me if I am eligible to renew my own order today with points please.
+
+Adam (Agent) to API: HTTP GET www.api.company.com/v2/public/access_token:7840990255 [ Method: 'GET', Authorization: [public: 1235236919, secret: 2946475809] Query: points, customerID: 7574130946] ] 
+
+API to agent: {Response: points: 9148}
+
+Agent to Customer: Alright. You have enough points to renew your order. You need 6133 and you currently have 9148. You would be left with 3015 points left. Would you prefer that I renew it for you?Agent to Customer: Top of the morning to ya! My name is Agnus! How can I service you today?
+
+
+
+Customer to Agent: 'Ello mate! I go by Carol. My ID is 2857833046. I urgent need to extend my significant order later with points please.
+
+Agnus (Agent) to API: HTTP GET www.api.company.com/v2/public/access_token:1724273346 [ Method: 'GET', Authorization: [public: 3744458271, secret: 5510612290] Query: points, customerID: 2857833046] ] 
+
+API to agent: {Response: points: 5168}
+
+Agent to Customer: Sounds good. you are able-bodied  to extend your order; it will cost  2190 points. You currently only have 5168. You'd have 2978 points left. Should I go with the extend?

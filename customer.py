@@ -6,9 +6,6 @@ import json as js
 from nltk.corpus import wordnet as wn
 from itertools import chain
 
-
-newline = "\n"
-period = "."
 def syn(word):
 	return list(set(chain.from_iterable([word.lemma_names() for word in wn.synsets(word)])))
 
@@ -17,7 +14,32 @@ def rand(lst):
 
 def idGen(size=10, chars=string.digits):
     	return ''.join(random.choice(chars) for _ in range(size))
+
+def emailGen(size=6, chars=string.ascii_lowercase):
+	adr = ''.join(random.choice(chars) for _ in range(size))
+	email = emails[np.random.randint(len(emails))]
+	return adr + email
+
+emails = ["@gmail.com", "@yahoo.com", "@digitalgenius.com", "@hotmail.com"]
+emails = ["@gmail.com", "@yahoo.com", "@digitalgenius.com", "@hotmail.com"]
+plans = ["Basic", "Silver", "Platinum", "Bronze", "Gold", "Supreme"]
+languages = ["English", "Spanish", "German", "Russian", "French"]
+currencies = ["Dollar", "Pound", "Euro", "Rubel"]
+cities = ["SF", "London", "Tokyo", "Sydney", "LA", "Kiev", "Budapest", "NY"]
+states = ["CA", "AZ", "NY", "TX", "AL", "OH", "FL"]
+countries = ["USA", "UK", "Australia", "Germany", "UAE", "Japan", "Slovenia"]
+ethnicities = ["Caucasian", "African", "African American", "East Asian", "Pacific Islander", "Central Asian", "Middle Eastern"]
+works = ["Digital Genius", "Citi", "Barclays", "Amazon", "Government", "PizzaHut", "Chipotle"]
+occupations = ["software developer", "" + rand(syn('finance')) + " guy", "amateur " + rand(syn('Chef')) + "", "Belly Dancer", "" + rand(syn('amateur')) + " juggler"]
+favorite_colors = ['red', 'green', 'orange', 'purple', 'blue', 'yellow']
+marriageStatuses = ["Honeymoon period", "Very much in love", "" + rand(syn('moderately')) + " in love", "" + rand(syn('faithful')) + "", "Slowly failing", "Divorced"]
+musicians = ["Coldplay", "Sting", "Radiohead", "Shakira"]
+
+
 class Customer:
+
+	newline = "\n"
+	period = "."
 
 	def __init__(self):
 		self.name = rand(["Carly","Carol","Cindy","Charley","Charles","Carson"])
@@ -28,6 +50,8 @@ class Customer:
 		self.actions = ["purchase", "renew", "extend"]
 		self.credits = ["miles", "points", "credits", "reward points", "customer loyalty points"]
 
+		self.action, self.obj, self.credit = rand(self.actions), rand(self.objects), rand(self.credits)
+
 		#TODO make this shared w/ database
 		self.categorical = ['Name', "Threshold", "Plan", "Language", "Currency", "Company", "City", "State", "Country", "Ethnicity", "Company", "Occupation", "Favorite-Color", "Marriage-Status", "Favorite-Musician"]
 		self.numerical = ['Phone','Email', "Friend-Count", "Savings-Balance", "Checking-Balance", "Zip", 'ID', 'Organization-ID', "Flight-Number", "Confirmation-Number", "Booking-Number"]
@@ -36,9 +60,49 @@ class Customer:
 		#### said references that can the be called in referenceBack() ####
 		self.references = []
 
-	""" Initial conversation remarks """
-	def beginConversation(self, action, obj, credit):
+		numPoints = np.random.randint(10000)
+		self.threshold = np.random.randint(10000)
+
+		self.data = {}
+		self.data['Name'] = self.name + " " + self.surname 
+		self.data['ID'] = self.ID
+		self.data['Organization-ID'] = idGen()
+		self.data['Phone'] = str(np.random.randint(1000000, 9999999))
+		self.data['Email'] = emailGen()
+		self.data['Language'] = rand(languages)
+		self.data['Type'] = "Personal API"
+		self.data['City'] = rand(cities)
+		self.data['State'] = rand(states)
+		self.data['Country'] = rand(countries)
+		self.data['Company'] = rand(works)
+		self.data['Favorite-Color'] = rand(favorite_colors)
+		self.data['Ethnicity'] = rand(ethnicities)
+		self.data['Occupation'] = rand(occupations)
+		self.data['Zip'] = idGen(5)
+		self.data['Marriage-Status'] = rand(marriageStatuses)
+		self.data['Favorite-Musician'] = rand(musicians)
+		self.data['Friend-Count'] = str(np.random.randint(500))
+		self.data['API-name'] = "Personal"
+
+		self.data[self.credit] = numPoints
+		self.data['Threshold'] = self.threshold
+		self.data['Plan'] = rand(plans)
+		self.data['Created-at'] = str(datetime.datetime.now())
+		self.data['Billing-cycle'] = str(np.random.randint(100))
+		self.data['Currency'] = rand(currencies)
+		self.data['Savings-Balance'] = str(np.random.randint(9999))
+		self.data['Checking-Balance'] = str(np.random.randint(9999))
+
+		# self.json =  "API to " + agentName + " (Agent): " + js.dumps(data) 
+
+	""" 
+	Initial conversation remarks
+	Intro sentence: " Hello, my name is __ and my ID is __. Can I upgrade my subscription with miles?"
+	Returns intro sentence, action, obj, credit 
+	"""
+	def intro(self):
 		##################### fluff #####################
+
 		want = syn('want')
 		like = syn('like')
 		urgent = syn('urgent')
@@ -56,8 +120,8 @@ class Customer:
 
 
 		##################### Important part #####################
-		beginning = rand(greetings) + " " + rand(intros) + " " + self.name + ". " + "My customer " + rand(ids) + " is " + self.ID + "."
-		return beginning + rand(begin1) + action + rand(begin2) + obj + rand(begin3) + credit + rand(begin4)
+		beginning = rand(greetings) + " " + rand(intros) + " " + self.name + ". " + "My " + rand(ids) + " is " + self.ID + "."
+		return "Customer to Agent: " + beginning + rand(begin1) + self.action + rand(begin2) + self.obj + rand(begin3) + self.credit + rand(begin4)
 
 
 	""" 
@@ -76,7 +140,7 @@ class Customer:
 
 		##################### Important part #####################
 		query = rand(self.queries)
-		question = rand(questionStarts) + " what is my " + query + " on file? " + rand(questionEnds) + " " + rand(finalRemarks) + " " + rand(fluff)
+		question = "Customer to Agent: " + rand(questionStarts) + " what is my " + query + " on file? " + rand(questionEnds) + " " + rand(finalRemarks) + " " + rand(fluff)
 		return question, query
 
 
@@ -93,7 +157,7 @@ class Customer:
 			question = "Does my " + str(query) + rand([' start with ', ' begin with ']) + str(num) + "?"
 		else:
 			num = np.random.randint(999999)
-			question = "Is my " + str(query) + " less than " + str(num)
+			question = "Customer to Agent: " + "Is my " + str(query) + " less than " + str(num)
 		return question, query, num
 
 
@@ -128,7 +192,7 @@ class Customer:
 
 		change = syn('change')
 		qs = ["Can you please " + rand(change) + " my ", "Would you be able to " + rand(change) + " my ", "Can you edit my ", "Would it be possible to " + rand(change) + " my "]
-		question = rand(qs) + req + ' to ' + val + '?'
+		question = "Customer to Agent: " + rand(qs) + req + ' to ' + val + '?'
 		return question, req, val
 
 
@@ -137,15 +201,15 @@ class Customer:
 		num = np.random.randint(2)
 		if (success):
 			if (num == 0):
-				return "Yes, that would be " + rand(syn('great')) + " if you could " + action + " my " +  obj + " for me. Thanks!"
+				return "Customer to Agent: " + "Yes, that would be " + rand(syn('great')) + " if you could " + action + " my " +  obj + " for me. Thanks!"
 			if (num == 1):
-				return rand(['Awesome', 'Sweet', 'Great', 'Sounds good', 'Sounds great', "That'd be magnificent"]) + ", let's do that!"
+				return "Customer to Agent: " + rand(['Awesome', 'Sweet', 'Great', 'Sounds good', 'Sounds great', "That'd be magnificent"]) + ", let's do that!"
 
 		else:
 			if (num == 0):
-				return "Ah ok. Thanks for " + rand(['trying', 'checking', 'seeing']) + " anyway!"
+				return "Customer to Agent: " + "Ah ok. Thanks for " + rand(['trying', 'checking', 'seeing']) + " anyway!"
 			if (num == 1):
-				return "Aw:( Ok fine."
+				return "Customer to Agent: " + "Aw:( Ok fine."
 
 
 	""" Conversation engine that controls dialogue """
@@ -157,6 +221,6 @@ class Customer:
 
 
 cust = Customer()
-# print(cust.beginConversation(rand(cust.actions), rand(cust.objects), rand(cust.credits)))
+# print(cust.intro(rand(cust.actions), rand(cust.objects), rand(cust.credits)))
 # print(cust.beginConversation('eat', 'burger', 'fork'))
-print(cust.askQuantitativeQuestion())
+# print(cust.askQuantitativeQuestion())

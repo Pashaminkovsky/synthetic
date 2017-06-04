@@ -12,6 +12,9 @@ def syn(word):
 def rand(lst):
 	return lst[np.random.randint(len(lst))].replace("_", " ")
 
+def randnum(lst):
+	return lst[np.random.randint(len(lst))]
+
 def idGen(size=10, chars=string.digits):
     	return ''.join(random.choice(chars) for _ in range(size))
 
@@ -23,20 +26,13 @@ class Agent:
 		self.public_key = idGen()
 		self.access_token = idGen()
 
-	def introduction(self):
-		return "Hello! My name is " + self.name + "! How can I " + rand(syn('help')) + " you today?"
+	def intro(self):
+		greetings =["Hello.", "Hey!", "Hi there!", "Hi,", "'Ello mate!", "Top of the morning to ya!"]
 
-	def answer(self, name, action, obj, credit, success=None, intro=False):
-		if intro:
-			intro = self.introduction()
+		return "Agent to Customer: " + rand(greetings) + " My name is " + self.name + "! How can I " + rand(syn('help') + ['be of assistance to', 'assist']) + " you today?"
 
-		json, data = personalJSON, personalData
-		points, threshold = data[credit], data['Threshold']
-		apiCall = json + "{Response: " + credit + ": " + str(points) + ", " + " threshold: " + str(threshold) + "}"
-		answer = ""
-		success = True
-		diff = str(abs(points-threshold))
-
+	def answer(self, name, action, obj, credit, success, points, threshold):
+		affirmations = ["Ok.", "Sounds good.", "Awesome!", "No problem.", "Sweet!", "Cool!", "Alright."]
 		sadnews = ["I'm sorry ", "I'm terribly sorry ", "Unfortunately, ", "I'm sorry to tell you ", "We cannot fulfill your " + rand(syn('request')) + " "]
 		reasons = [" you don't seem to have enough ", " you don't have enough ", " you don't meet the minimum amount of ", " you don't meet our threshold of ", " you do not have enough ", " you are seriously lacking in ", " you're " + rand(syn('poor')) + " in ", " you're depleted of ", " you're " + rand(syn('low')) + " on ", " you don't seem to have enough ", " according to my records you don't have enough "]
 		needed = [ ". You need ", ". The " + rand(syn('required')) + " amount is ", ". You must have at least ", ". The minimum is ", ". You must have a minimum of "]
@@ -49,21 +45,23 @@ class Agent:
 		inquiry = ["Would you like me to ", "Should I ", "Would you prefer that I ", "Would you prefer me to "]
 
 
+
 		unfortunatelySyn = syn('unfortunately')
 		currentlySyn = syn('currently')
 		haveSyn = ['be left with', 'have', 'only have']
 		ableSyn = syn('able')
 		proceedSyn = syn('proceed')
 
-		print(" # of agent2 Sentences: " + str(len(set(sadnews))*len(haveSyn)*len(reasons)*len(needed)*len(had)*len(['need', 'are short', 'must obtain', 'require'])*len(set(unfortunatelySyn))))
+		# print(" # of agent2 Sentences: " + str(len(set(sadnews))*len(haveSyn)*len(reasons)*len(needed)*len(had)*len(['need', 'are short', 'must obtain', 'require'])*len(set(unfortunatelySyn))))
 
-		randnum = np.random.randint(2)
-		if (points < threshold): # not enough points
-			answer = customerContext + " " + rand(unfortunatelySyn) + " " + rand(sadnews) + name + rand(reasons) + credit + " to " + action +" your " + obj + rand(needed) + str(threshold) + ", but you only have " + str(points) + ". You " + rand(['need', 'are short', 'must obtain', 'require']) + " " + diff + " more " + credit + "."
-			success = False 
+		answer = ""
+		diff = str(abs(points - threshold))
+		if not success: # not enough points
+			answer = "Agent to Customer: " + rand(unfortunatelySyn) + " " + rand(sadnews) + name + rand(reasons) + credit + " to " + action +" your " + obj + rand(needed) + str(threshold) + ", but you only have " + str(points) + ". You " + rand(['need', 'are short', 'must obtain', 'require']) + " " + diff + " more " + credit + "."
 		else: # has enough points
-			if (randnum == 0):
-				answer = customerContext + rand(goodnews) + " " + rand(goodreasons) + credit + " to " + action + " your " + obj + ". You need " + str(threshold) + rand(goodhad) + str(points) + ". You would " + rand(haveSyn) + " " + diff + " points left. " + rand(inquiry) + action + " it for you?"
-			if (randnum == 1):
-				answer = customerContext + rand(goodnews) + " you are " + rand(ableSyn) + " " + " to " + action + " your " + obj + "; it will cost  " + str(threshold)  + " " + credit + ". You " + rand(currentlySyn) + " " + rand(haveSyn) + " " + str(points) + ". You'd have " + diff + " " + credit + " left. " + rand(inquiry) + rand(proceedSyn) + " with the " + action + "?"
-		return  apiCall, answer, success 
+			randomize = np.random.randint(2)
+			if (randomize == 0):
+				answer = "Agent to Customer: " +  rand(goodnews) + " " + rand(goodreasons) + credit + " to " + action + " your " + obj + ". You need " + str(threshold) + rand(goodhad) + str(points) + ". You would " + rand(haveSyn) + " " + diff + " points left. " + rand(inquiry) + action + " it for you?"
+			if (randomize == 1):
+				answer = "Agent to Customer: " +  rand(goodnews) + " you are " + rand(ableSyn) + " " + " to " + action + " your " + obj + "; it will cost  " + str(threshold)  + " " + credit + ". You " + rand(currentlySyn) + " " + rand(haveSyn) + " " + str(points) + ". You'd have " + diff + " " + credit + " left. " + rand(inquiry) + rand(proceedSyn) + " with the " + action + "?"
+		return answer
